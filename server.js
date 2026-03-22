@@ -25,7 +25,7 @@ const upload = multer({
 });
 
 // ── Static frontend ─────────────────────────────────────────────────────────
-app.use(express.static('public'));
+app.use(express.static(path.join(__dirname, 'public')));
 
 // ── Upload endpoint ─────────────────────────────────────────────────────────
 app.post('/upload', upload.single('file'), (req, res) => {
