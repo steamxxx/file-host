@@ -31,7 +31,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.post('/upload', upload.single('file'), (req, res) => {
   if (!req.file) return res.status(400).json({ error: 'No file received' });
 
-  const downloadLink = `http://localhost:${PORT}/download/${req.file.filename}`;
+const host = req.headers['x-forwarded-host'] || req.headers.host;
+const protocol = req.headers['x-forwarded-proto'] || 'http';
+const downloadLink = `${protocol}://${host}/download/${req.file.filename}`;
   res.json({
     success: true,
     filename: req.file.originalname,
