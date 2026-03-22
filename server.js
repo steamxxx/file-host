@@ -58,6 +58,12 @@ app.get('/files', (req, res) => {
   res.json(files);
 });
 
+// Create uploads folder if it doesn't exist
+const uploadsDir = path.join(__dirname, 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+}
+
 app.listen(PORT, () => {
   console.log(`✅ Server running → http://localhost:${PORT}`);
 });
